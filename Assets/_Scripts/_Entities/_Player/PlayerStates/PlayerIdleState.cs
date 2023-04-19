@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class PlayerIdleState : PlayerBaseState
+{
+    public PlayerIdleState(PlayerStateMachine ctx, PlayerStateFactory factory, PlayerState state) : base(ctx, factory, state)
+    {
+    }
+
+    public override void EnterState()
+    {
+        Debug.Log($"<color=teal>Enter</color> {State} state");
+    }
+
+    public override void ExitState()
+    {
+        Debug.Log($"<color=red>Exit</color> {State} state");
+    }
+
+    public override void FixedUpdateState()
+    {
+        Ctx.Rigidbody.velocity = Vector2.zero;
+    }
+
+    protected override void CheckSwitchState()
+    {
+        if (Ctx.Controller.IsAttackPressed)
+        {
+            Ctx.SwitchState(Factory.Attack);
+        }
+        else if (Ctx.Controller.IsMoving)
+        {
+            Ctx.SwitchState(Factory.Moving);
+        }
+    }
+}
