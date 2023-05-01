@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static MinimapRoomController;
 
-[CreateAssetMenu(menuName = "MinimapRoom")]
+[CreateAssetMenu(menuName = "ScriptableObject/Dungeon/MinimapRoom", fileName ="NewMinimapRoom")]
 public class MinimapRoomSO : ScriptableObject
 {
     [SerializeField] private RoomType _type;
