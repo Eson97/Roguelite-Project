@@ -4,16 +4,11 @@ using UnityEngine;
 
 public abstract class BaseInteractable : MonoBehaviour, IInteractable
 {
-    [SerializeField] private GameObject _selectedVisuals;
+    [SerializeField] private List<GameObject> _selectedVisuals;
 
     protected virtual void Awake()
     {
         Deselect();
-    }
-
-    protected virtual void PlayerController_OnSelectedInteractableChanged(IInteractable selected)
-    {
-        _selectedVisuals.SetActive(this.Equals(selected));
     }
 
     public virtual void Interact()
@@ -21,7 +16,7 @@ public abstract class BaseInteractable : MonoBehaviour, IInteractable
         Debug.Log("Interact!");
     }
 
-    public void Select() => _selectedVisuals.SetActive(true);
+    public void Select() => _selectedVisuals.ForEach(x => x.SetActive(true));
 
-    public void Deselect() => _selectedVisuals.SetActive(false);
+    public void Deselect() => _selectedVisuals.ForEach(x => x.SetActive(false));
 }
