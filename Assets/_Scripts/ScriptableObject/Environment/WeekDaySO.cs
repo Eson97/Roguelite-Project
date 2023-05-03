@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Environment/WeekDay", fileName = "NewWeekDay")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Environment/WeekDay", fileName = "NewWeekDay")]
 public class WeekDaySO : ScriptableObject
 {
     [SerializeField] private Values _value;

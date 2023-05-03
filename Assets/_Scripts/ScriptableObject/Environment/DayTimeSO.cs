@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Environment/DayTime", fileName = "NewDayTime")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Environment/DayTime", fileName = "NewDayTime")]
 public class DayTimeSO : ScriptableObject
 {
     [SerializeField] private  Values _value;
