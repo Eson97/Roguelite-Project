@@ -8,6 +8,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     //[SerializeField] private Animator _animator;
     [SerializeField] private float _speed = 5f;
+    [Header("Debug")]
+    [SerializeField] private bool _logStateData;
     
     private PlayerStateFactory _factory;
     private PlayerBaseState _currentState;
@@ -59,5 +61,11 @@ public class PlayerStateMachine : MonoBehaviour
         _currentState.EnterState();
 
         OnStateChanged?.Invoke(CurrentState);
+    }
+
+    public void Log(string text)
+    {
+        if(_logStateData)
+            Debug.Log(text);
     }
 }

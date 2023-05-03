@@ -8,12 +8,12 @@ public class PlayerWalkingState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log($"<color=teal>Enter</color> {State} state");
+        Ctx.Log($"<color=teal>Enter</color> {State} state");
     }
 
     public override void ExitState()
     {
-        Debug.Log($"<color=red>Exit</color> {State} state");
+        Ctx.Log($"<color=red>Exit</color> {State} state");
     }
 
     public override void FixedUpdateState()
