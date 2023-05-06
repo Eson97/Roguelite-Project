@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Seed1
   _description: When fullGrow it drops <Crop>
-  _icon: {fileID: 21300000, guid: 62ce01ddca719d34ea9648c586a7cc94, type: 3}
+  _price: 10
+  _uiIcon: {fileID: 21300000, guid: 62ce01ddca719d34ea9648c586a7cc94, type: 3}
+  _prefab: {fileID: 0}
   _phases:
   - {fileID: 21300000, guid: 6818185ceb532754e8cd9ddc523ac14b, type: 3}
   - {fileID: 21300000, guid: ea8bd4d1634206d48a352aa8ef55d6bd, type: 3}
@@ -23,4 +25,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 30eb23849602b2642b7450c4b025fe84, type: 3}
   _daysToSwitchPhase: 1
   _crop: {fileID: 11400000, guid: a0f9fd668add809409b89c1fb1956aae, type: 2}
-  _price: 10
