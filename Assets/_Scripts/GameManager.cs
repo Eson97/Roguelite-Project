@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -10,10 +7,10 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private int _saveSlot = -1;
 
-    private const string SAVEFILE_EXTENSION = ".json";
+    private const string SAVE_FILE_EXTENSION = ".json";
 
-    private string FileName => $"Save{_saveSlot}{SAVEFILE_EXTENSION}";
-    private string AutoSaveFileName => $"Autosave{SAVEFILE_EXTENSION}";
+    private string FileName => $"Save{_saveSlot}{SAVE_FILE_EXTENSION}";
+    private string AutoSaveFileName => $"Autosave{SAVE_FILE_EXTENSION}";
 
     public event Action<SaveData> OnLoadData;
 
@@ -34,9 +31,9 @@ public class GameManager : Singleton<GameManager>
             Inventory = InventoryManager.Instance.SerializableInventoryItemData,
         };
 
-        var json = Utilities.Json.Serialize(saveData);
+        SaveSystem.SaveFile(FileName, saveData);
 
-        SaveSystem.SaveFile(FileName, json);
+        Debug.Log("Save Done!");
     }
     public void AutoSave()
     {
@@ -46,25 +43,17 @@ public class GameManager : Singleton<GameManager>
             Inventory = InventoryManager.Instance.SerializableInventoryItemData,
         };
 
-        var json = Utilities.Json.Serialize(saveData);
+        SaveSystem.SaveFile(AutoSaveFileName, saveData);
 
-        SaveSystem.SaveFile(AutoSaveFileName, json);
+        Debug.Log("AutoSave Done!");
     }
     public void Load()
     {
-        var json = SaveSystem.LoadFile(FileName);
-
-        //no saveFile was found
-        if (json == null) return;
-
-        var saveData = Utilities.Json.Deserialize<SaveData>(json);
+        var saveData = SaveSystem.LoadFile(FileName);
         OnLoadData?.Invoke(saveData);
+
+        Debug.Log("Load Done!");
     }
 
-    public struct SaveData
-    {
-        public int Id { get; set; }
-        public List<InventoryItemData> Inventory { get; set; }
-    }
 }
 

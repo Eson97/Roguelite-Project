@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.IO;
 using UnityEngine;
 
-public class SaveSystem : MonoBehaviour
+public class SaveSystem
 {
     private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
 
@@ -17,26 +16,37 @@ public class SaveSystem : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Create or Override a save file
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <param name="saveString"></param>
-    public static void SaveFile(string fileName, string saveString) =>
-        File.WriteAllText(SAVE_FOLDER + fileName, saveString);
-
-    /// <summary>
-    /// Get data from a savefile
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <returns>Null if not file was found</returns>
-    public static string LoadFile(string fileName)
+    public static void SaveFile(string fileName, SaveData saveData)
     {
-        string result = null;
-
-        if (File.Exists(SAVE_FOLDER + fileName))
-            result = File.ReadAllText(SAVE_FOLDER + fileName);
-
-        return result;
+        var saveString = JsonSerializer.Serialize(saveData);
+        File.WriteAllText(SAVE_FOLDER + fileName, saveString);
     }
+
+    public static SaveData LoadFile(string fileName)
+    {
+        if (!File.Exists(SAVE_FOLDER + fileName)) throw new FileNotFoundException();
+
+        var text = File.ReadAllText(SAVE_FOLDER + fileName);
+        var json = JsonSerializer.Deserialize<SaveData>(text);
+
+        var data = new SaveData
+        {
+            Id = json.Id,
+            Inventory = json.Inventory,
+        };
+
+        return data;
+    }
+}
+
+public struct SaveData
+{
+    public int Id { get; set; }
+    public List<InventoryItemData> Inventory { get; set; }
+}
+
+public struct InventoryItemData
+{
+    public string Name { get; set; }
+    public int Quantity { get; set; }
 }
